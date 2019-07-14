@@ -20,13 +20,16 @@ Local nMediaAluno
 Local nMediaGeral := 0
 
     For nAluno:=1 to Len(aAlunos)
-        aNotas := aAlunos[nAluno]
+        aNotas := aAlunos[nAluno][2]
         nMediaAluno := 0
         
         For nNota:=1 to Len(aNotas)
             nMediaAluno += aNotas[nNota]
         Next nNota
-        nMediaAluno := nMediaAluno / Len(aAlunos)
+        
+        nMediaALuno /= Len(aNotas)
+        
+        nMediaAluno /= Len(aAlunos)
 
         nMediaGeral += nMediaAluno
     Next nAluno
