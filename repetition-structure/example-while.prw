@@ -10,14 +10,13 @@ Exemplo de while para criar um array com 10 numeros
 /*/
 //-------------------------------------------------------------------
 User Function myWhile()
-Local nNum := 0
+Local nNum := 1
 Local aNumeros := {}
 
-    While nNum >= 0 .And. nNum <= 10 
+    While nNum >= 1 .And. nNum <= 10 
         aAdd(aNumeros, nNum)
         nNum++
     End Do
 
-    VarInfo(“Lista”, aNumeros)
-
+    VarInfo("Lista", aNumeros)
 Return

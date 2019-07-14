@@ -10,7 +10,7 @@ ou até 1000, caso o numero informado pelo usuario seja maior que 1000.
 /*/
 //-------------------------------------------------------------------
 User Function whileExit()
-Local nLimite := FWInputBox("Informe um número limite")
+Local nLimite := Val(FWInputBox("Informe um número limite"))
 Local aNumeros := {}
 Local nNum := 0
 

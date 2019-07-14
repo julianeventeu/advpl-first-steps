@@ -12,6 +12,6 @@ Local nTimes
 
     For nTimes:=1 To 1000
         Conout("I S2 AdvPL")
-    Next nTimes
+    Next
 
 Return

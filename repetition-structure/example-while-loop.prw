@@ -10,7 +10,7 @@ informado pelo usuario
 /*/
 //-------------------------------------------------------------------
 User Function whileLoop()
-Local nLimite := FWInputBox("Informe um número limite")
+Local nLimite := Val(FWInputBox("Informe um número limite"))
 Local aNumeros := {}
 Local nNum := 0
 
