@@ -11,7 +11,7 @@ jobs:
 - job: build${{ parameters.lang }}
   displayName: '${{ parameters.lang }} build'
   pool:
-    name: Framework-Builds
+    name: advpl-azure-agent
     demands: Agent.OS -equals Linux
   workspace:
     clean: all
