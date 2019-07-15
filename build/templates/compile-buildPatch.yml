@@ -1,0 +1,59 @@
+parameters:
+  imageName: ''  # defaults for any parameters that aren't specified
+  lang: ''
+  branchName: ''
+  commitHash: ''
+  mydataBuild: ''
+  containerName: ''
+  artifactsFolder: ''
+  ptm: ''
+jobs:
+- job: build${{ parameters.lang }}
+  displayName: '${{ parameters.lang }} build'
+  pool:
+    name: Framework-Builds
+    demands: Agent.OS -equals Linux
+  workspace:
+    clean: all
+  steps:    
+  - task: Docker@1
+    displayName: Container Build
+    inputs:
+      command: build      
+      containerregistrytype: Container Registry
+      dockerRegistryEndpoint: docker_totvs
+      dockerFile: Dockerfile
+      imageName: ${{ parameters.imageName }}
+      qualifyImageName: false
+      arguments: --pull --build-arg LANG=${{ parameters.lang }} --build-arg
+  - script: |
+      docker run --rm -d --name ${{ parameters.containerName }} -v ${{ parameters.artifactsFolder }}/:/artifacts/ ${{ parameters.imageName }}
+    displayName: Run Image
+  - script: |
+      docker exec ${{ parameters.containerName }} /usr/local/fastComp.sh
+    displayName: Exec Compile
+  - script: |
+      docker exec ${{ parameters.containerName }} /usr/local/fastPatch.sh
+    displayName: Exec Build Patch  
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifacts in ${{ parameters.artifactsFolder }}'
+    inputs:
+      PathtoPublish: '${{ parameters.artifactsFolder }}/${{ parameters.ptm }}' 
+      ArtifactName: 'Patchs'
+      publishLocation: Container
+      TargetPath: $(System.DefaultWorkingDirectory)         
+  - script: |
+      rm -rf ${{ parameters.artifactsFolder }}/${{ parameters.ptm }} 2> /dev/null || exit 0
+    displayName: 'Remove Temp  ${{ parameters.ptm }}'
+    continueOnError: true
+    condition: succeededOrFailed()
+  - script: |
+      docker stop ${{ parameters.containerName }} 2> /dev/null || exit 0
+    displayName: 'Stop container ${{ parameters.containerName }}'
+    continueOnError: true
+    condition: succeededOrFailed()
+  - script: |
+      docker rmi -f ${{ parameters.imageName }} 2> /dev/null || exit 0
+    displayName: Remove local image
+    continueOnError: true
+    condition: succeededOrFailed()

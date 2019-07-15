@@ -1,0 +1,7 @@
+FROM docker.totvs.io/framesp_ci/fastcompile:frame
+ADD src /src
+ADD includes /includes
+ENTRYPOINT ["/usr/local/FastCompile","--compileID=F4DC-CC99","--passwordEmpty","--build=170117A","--port=1234","--compileFolder=/src/","--include=/includes/include/;/includes/include-lib/" ]
+CMD ["-h"]
+
+ 

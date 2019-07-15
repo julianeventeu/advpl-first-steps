@@ -1,0 +1,53 @@
+name: $(BuildDefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)_$(Hours)$(Minutes)$(Seconds)
+trigger: none
+variables:    
+  branchName: $(Build.Repository.Name)
+  commitHash: $(Build.SourceVersion)
+  mydataBuild: $(Build.BuildNumber)
+  imageNameBase: compilelib:$(Build.BuildId)
+  containerName: $(Build.Repository.Name)_$(Build.BuildId)
+  system_accesstoken: $(System.AccessToken)
+  artifactsFolder: /tmp/artifacts/$(containerName)  
+jobs:
+
+#####################
+#build English
+#####################
+- template: templates/compile-buildPatch.yml  
+  parameters:
+    imageName: $(imageNameBase)_english
+    lang: ENGLISH
+    branchName: $(branchName)
+    commitHash: $(commitHash)
+    mydataBuild: $(mydataBuild)
+    containerName: $(containerName)_english
+    artifactsFolder: $(artifactsFolder)
+    ptm: ttte120.ptm
+
+#####################
+#build Portuguese
+#####################
+- template: templates/compile-buildPatch.yml  
+  parameters:
+    imageName: $(imageNameBase)_portuguese
+    lang: PORTUGUESE
+    branchName: $(branchName)
+    commitHash: $(commitHash)
+    mydataBuild: $(mydataBuild)
+    containerName: $(containerName)_portuguese
+    artifactsFolder: $(artifactsFolder)
+    ptm: tttp120.ptm
+
+#####################
+#build Spanish
+#####################
+- template: templates/compile-buildPatch.yml  
+  parameters:
+    imageName: $(imageNameBase)_spanish
+    lang: SPANISH
+    branchName: $(branchName)
+    commitHash: $(commitHash)
+    mydataBuild: $(mydataBuild)
+    containerName: $(containerName)_spanish
+    artifactsFolder: $(artifactsFolder)
+    ptm: ttts120.ptm

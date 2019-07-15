@@ -1,0 +1,35 @@
+version: '3.6'
+services:  
+  appserver:
+    image: docker.totvs.io/framesp_ci/loboguara:17.3.0.8
+    environment:
+      - "APPSERVER_GENERAL_BUILDKILLUSERS=1"      
+      - "APPSERVER_HTTP_ENABLE=0"
+      - "APPSERVER_LICENSECLIENT_SERVER=10.171.67.183"
+      - "APPSERVER_LICENSECLIENT_PORT=5555"          
+      - "APPSERVER_ENVIRONMENT_STARTPATH=/system/"    
+      - "APPSERVER_ENVIRONMENT_ROOTPATH=/tmp/"    
+      - "APPSERVER_ENVIRONMENT_SOURCEPATH=/tmp/apo/"    
+      - "APPSERVER_LOCKSERVER_ENABLE=1"    
+      - "APPSERVER_LOCKSERVER_SERVER=appserver"    
+      - "APPSERVER_LOCKSERVER_PORT=1234"
+    ports:
+      - 1234:1234
+    volumes:
+    - /opt/build/:/tmp/apo/
+  compile:
+    image: imagetocompile:latest
+    depends_on:
+      - appserver
+    links:
+      - appserver
+#    entrypoint:
+#      /usr/local/FastCompile
+#      --compileID=F4DC-CC99      
+#      --passwordEmpty
+#      --build=170117A
+#      --port=1234
+#      --compileFolder=/src/
+#      --include=/includes/include/;/includes/include-lib/
+#      --enviroment=ENVIRONMENT
+#      --server=appserver
