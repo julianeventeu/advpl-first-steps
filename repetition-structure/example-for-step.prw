@@ -11,6 +11,6 @@ Local nNumero
 
     For nNumero:=10 To 1 step -1
         Conout(nNumero)
-    Next nTimes
-
+    Next 
+    
 Return
