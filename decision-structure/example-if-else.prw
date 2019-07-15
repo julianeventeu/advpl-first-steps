@@ -7,7 +7,7 @@ Exemplo de uso da estrutura if-else
 @author  Juliane Venteu
 /*/
 //-------------------------------------------------------------------
-User Function decision()
+User Function ifelse()
 Local nNum1 := val(FWInputBox("Informe um número"))
 Local nNum2 := val(FWInputBox("Informe outro número"))
 

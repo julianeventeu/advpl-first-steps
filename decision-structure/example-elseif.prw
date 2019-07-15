@@ -7,7 +7,7 @@ Exemplo de uso da estrutura elseIf
 @author  Juliane Venteu
 /*/
 //-------------------------------------------------------------------
-User Function decision2()
+User Function ifelseif()
 Local nNum1 := val(FWInputBox("Informe um número"))
 Local nNum2 := val(FWInputBox("Informe outro número"))
 
