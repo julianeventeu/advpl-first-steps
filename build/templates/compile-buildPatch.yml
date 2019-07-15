@@ -32,13 +32,13 @@ jobs:
   - script: |
       docker exec ${{ parameters.containerName }} /usr/local/fastComp.sh
     displayName: Exec Compile
-  - task: PublishBuildArtifacts@1
-    displayName: 'Publish Artifacts in ${{ parameters.artifactsFolder }}'
-    inputs:
-      PathtoPublish: '${{ parameters.artifactsFolder }}/${{ parameters.ptm }}' 
-      ArtifactName: 'Patchs'
-      publishLocation: Container
-      TargetPath: $(System.DefaultWorkingDirectory)         
+# - task: PublishBuildArtifacts@1
+#    displayName: 'Publish Artifacts in ${{ parameters.artifactsFolder }}'
+#    inputs:
+#      PathtoPublish: '${{ parameters.artifactsFolder }}/${{ parameters.ptm }}' 
+#      ArtifactName: 'Patchs'
+#      publishLocation: Container
+#      TargetPath: $(System.DefaultWorkingDirectory)         
   - script: |
       rm -rf ${{ parameters.artifactsFolder }}/${{ parameters.ptm }} 2> /dev/null || exit 0
     displayName: 'Remove Temp  ${{ parameters.ptm }}'
