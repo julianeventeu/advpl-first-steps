@@ -11,20 +11,6 @@ variables:
 jobs:
 
 #####################
-#build English
-#####################
-- template: templates/compile-buildPatch.yml  
-  parameters:
-    imageName: $(imageNameBase)_english
-    lang: ENGLISH
-    branchName: $(branchName)
-    commitHash: $(commitHash)
-    mydataBuild: $(mydataBuild)
-    containerName: $(containerName)_english
-    artifactsFolder: $(artifactsFolder)
-    ptm: ttte120.ptm
-
-#####################
 #build Portuguese
 #####################
 - template: templates/compile-buildPatch.yml  
@@ -37,17 +23,3 @@ jobs:
     containerName: $(containerName)_portuguese
     artifactsFolder: $(artifactsFolder)
     ptm: tttp120.ptm
-
-#####################
-#build Spanish
-#####################
-- template: templates/compile-buildPatch.yml  
-  parameters:
-    imageName: $(imageNameBase)_spanish
-    lang: SPANISH
-    branchName: $(branchName)
-    commitHash: $(commitHash)
-    mydataBuild: $(mydataBuild)
-    containerName: $(containerName)_spanish
-    artifactsFolder: $(artifactsFolder)
-    ptm: ttts120.ptm
