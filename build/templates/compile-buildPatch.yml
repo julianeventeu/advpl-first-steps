@@ -15,14 +15,7 @@ jobs:
     demands: Agent.OS -equals Linux
   workspace:
     clean: all
-  steps:
-  - task: UniversalPackages@0
-    displayName: 'Universal download'
-    inputs:
-      downloadDirectory: build/rpo
-      vstsFeed: '2d58f1e8-01c0-44a5-8493-f046cd510877'
-      vstsFeedPackage: 'cfed1e08-9e15-4275-81e6-499132c1dbd6'
-      vstsPackageVersion: 12.1.25
+  steps:  
   - task: Docker@1
     displayName: Container Build
     inputs:
@@ -39,9 +32,6 @@ jobs:
   - script: |
       docker exec ${{ parameters.containerName }} /usr/local/fastComp.sh
     displayName: Exec Compile
-  - script: |
-      docker exec ${{ parameters.containerName }} /usr/local/fastPatch.sh
-    displayName: Exec Build Patch  
   - task: PublishBuildArtifacts@1
     displayName: 'Publish Artifacts in ${{ parameters.artifactsFolder }}'
     inputs:
@@ -54,13 +44,13 @@ jobs:
     displayName: 'Remove Temp  ${{ parameters.ptm }}'
     continueOnError: true
     condition: succeededOrFailed()
-#  - script: |
-#      docker stop ${{ parameters.containerName }} 2> /dev/null || exit 0
-#    displayName: 'Stop container ${{ parameters.containerName }}'
-#    continueOnError: true
-#    condition: succeededOrFailed()
-#  - script: |
-#      docker rmi -f ${{ parameters.imageName }} 2> /dev/null || exit 0
-#    displayName: Remove local image
-#    continueOnError: true
-#    condition: succeededOrFailed()
+  - script: |
+      docker stop ${{ parameters.containerName }} 2> /dev/null || exit 0
+    displayName: 'Stop container ${{ parameters.containerName }}'
+    continueOnError: true
+    condition: succeededOrFailed()
+  - script: |
+      docker rmi -f ${{ parameters.imageName }} 2> /dev/null || exit 0
+    displayName: Remove local image
+    continueOnError: true
+    condition: succeededOrFailed()
