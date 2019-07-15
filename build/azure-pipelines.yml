@@ -5,7 +5,7 @@ variables:
   commitHash: $(Build.SourceVersion)
   mydataBuild: $(Build.BuildNumber)
   imageNameBase: compilelib:$(Build.BuildId)
-  containerName: $(Build.Repository.Name)_$(Build.BuildId)
+  containerName: $(Build.BuildId)
   system_accesstoken: $(System.AccessToken)
   artifactsFolder: /tmp/artifacts/$(containerName)  
 jobs:
