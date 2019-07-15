@@ -15,7 +15,14 @@ jobs:
     demands: Agent.OS -equals Linux
   workspace:
     clean: all
-  steps:    
+  steps:
+  - task: UniversalPackages@0
+    displayName: 'Universal download'
+    inputs:
+      downloadDirectory: build/rpo
+      vstsFeed: '2d58f1e8-01c0-44a5-8493-f046cd510877'
+      vstsFeedPackage: 'cfed1e08-9e15-4275-81e6-499132c1dbd6'
+      vstsPackageVersion: 12.1.25
   - task: Docker@1
     displayName: Container Build
     inputs:
