@@ -2,9 +2,6 @@
 
 set -e
 echo "Starting"
-date
-stat /src/Lib/APLIB/ApLib070.PRW 
-
 until echo -n > /dev/tcp/localhost/$APPSERVER_TCP_PORT
 do
     echo "Wating for service on port $APPSERVER_TCP_PORT"
