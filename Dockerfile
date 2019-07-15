@@ -9,6 +9,7 @@ ENV TZ America/Sao_Paulo
 ARG LANG=PORTUGUESE
 ADD src /src
 ADD includes /includes
+ADD build/rpo /app-data/rpo
 ADD build/fastComp.sh /usr/local
 ADD build/fastPatch.sh /usr/local
 RUN mkdir /artifacts/
