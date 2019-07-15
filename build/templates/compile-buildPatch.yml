@@ -54,13 +54,13 @@ jobs:
     displayName: 'Remove Temp  ${{ parameters.ptm }}'
     continueOnError: true
     condition: succeededOrFailed()
-#  - script: |
-#      docker stop ${{ parameters.containerName }} 2> /dev/null || exit 0
-#    displayName: 'Stop container ${{ parameters.containerName }}'
-#    continueOnError: true
-#    condition: succeededOrFailed()
-#  - script: |
-#      docker rmi -f ${{ parameters.imageName }} 2> /dev/null || exit 0
-#    displayName: Remove local image
-#    continueOnError: true
-#    condition: succeededOrFailed()
+  - script: |
+      docker stop ${{ parameters.containerName }} 2> /dev/null || exit 0
+    displayName: 'Stop container ${{ parameters.containerName }}'
+    continueOnError: true
+    condition: succeededOrFailed()
+  - script: |
+      docker rmi -f ${{ parameters.imageName }} 2> /dev/null || exit 0
+    displayName: Remove local image
+    continueOnError: true
+    condition: succeededOrFailed()
