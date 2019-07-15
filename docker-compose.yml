@@ -25,7 +25,7 @@ services:
       - appserver
 #    entrypoint:
 #      /usr/local/FastCompile
-#      --compileID=F4DC-CC99      
+#      --compileID=ZZZZ-ZZZZ      
 #      --passwordEmpty
 #      --build=170117A
 #      --port=1234
