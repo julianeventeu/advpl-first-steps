@@ -32,6 +32,11 @@ jobs:
   - script: |
       docker exec ${{ parameters.containerName }} /usr/local/fastComp.sh
     displayName: Exec Compile
+  - task: PythonScript@0
+    displayName: 'Run a Python script'
+    inputs:
+      scriptPath: build/runTestCases.py
+      arguments: test/tests
 # - task: PublishBuildArtifacts@1
 #    displayName: 'Publish Artifacts in ${{ parameters.artifactsFolder }}'
 #    inputs:
