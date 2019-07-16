@@ -8,5 +8,5 @@
 /*/
 //-------------------------------------------------------------------
 User Function helloWorld()
-Local cTexto := ""
+Local cTexto := "I S2 AdvPL"
 Return cTexto
