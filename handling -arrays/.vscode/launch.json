@@ -1,0 +1,33 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"type": "totvs_language_debug",
+			"request": "launch",
+			"name": "Totvs Language Debug",
+			"program": "${command:AskForProgramName}",
+			"cwb": "${workspaceFolder}",
+			"smartclientBin": "D:/FIRST/bin/SmartClient/smartclient.exe",
+			"isMultiSession": true,
+			"enableTableSync": true
+		}
+	],
+	"lastPrograms": [
+		{
+			"args": [],
+			"label": "u_ios_arr",
+			"description": ""
+		},
+		{
+			"args": [],
+			"label": "U_AaddItem",
+			"description": ""
+		},
+		{
+			"args": [],
+			"label": "U_DelArr",
+			"description": ""
+		}
+	],
+	"lastProgramExecuted": "U_DelArr"
+}
