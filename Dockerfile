@@ -5,7 +5,7 @@ ADD src /src
 ADD includes /includes
 ADD tests /tests
 
-RUN apt-get -y install python
-RUN python --version
+RUN apt-get -y install python3
+RUN python3 --version
 
 WORKDIR /src
