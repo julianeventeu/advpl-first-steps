@@ -111,5 +111,6 @@ if __name__ == "__main__":
     broke = []
     
     filesTestCase = getAllTestCases(getPathTests())
+    print(filesTestCase)
     executeTests(filesTestCase, successful, half_successful, broke)
     print_results(successful, half_successful, broke)
