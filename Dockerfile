@@ -5,5 +5,6 @@ ADD src /src
 ADD includes /includes
 
 RUN apt-get -y install python
+RUN python --version
 
 WORKDIR /src
