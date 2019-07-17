@@ -36,7 +36,9 @@ jobs:
       docker exec ${{ parameters.containerName }} /usr/local/compTests.sh
     displayName: Tests Compile
   - script: |
-      python3 build/tests/runTests.py tests/ 
+      docker exec ${{ parameters.containerName }} python3 --version
+      docker exec ${{ parameters.containerName }} python3 /build/tests/runTests.py /tests/ 
+      #python3 build/tests/runTests.py tests/ 
     displayName: Run Testes
   - script: |
       rm -rf ${{ parameters.artifactsFolder }}/${{ parameters.ptm }} 2> /dev/null || exit 0
