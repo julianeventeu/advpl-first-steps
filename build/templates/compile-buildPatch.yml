@@ -31,19 +31,13 @@ jobs:
     displayName: Run Image
   - script: |
       docker exec ${{ parameters.containerName }} /usr/local/fastComp.sh
-    displayName: Exec Compile
-  - task: PythonScript@0
-    displayName: 'Run a Python script'
-    inputs:
-      scriptPath: build/runTestCases.py
-      arguments: test/tests
-# - task: PublishBuildArtifacts@1
-#    displayName: 'Publish Artifacts in ${{ parameters.artifactsFolder }}'
-#    inputs:
-#      PathtoPublish: '${{ parameters.artifactsFolder }}/${{ parameters.ptm }}' 
-#      ArtifactName: 'Patchs'
-#      publishLocation: Container
-#      TargetPath: $(System.DefaultWorkingDirectory)         
+    displayName: Source Compile     
+  - script: |
+      docker exec ${{ parameters.containerName }} /usr/local/compTests.sh
+    displayName: Tests Compile
+  - script: |
+      python  ${{ parameters.sourceFolder }}/build/runTests.py -${{ parameters.sourceFolder }}/test/tests -${{ parameters.containerName }}
+    displayName: Run Testes
   - script: |
       rm -rf ${{ parameters.artifactsFolder }}/${{ parameters.ptm }} 2> /dev/null || exit 0
     displayName: 'Remove Temp  ${{ parameters.ptm }}'

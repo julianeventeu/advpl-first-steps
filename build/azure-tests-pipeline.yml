@@ -12,6 +12,7 @@ variables:
 
   system_accesstoken: $(System.AccessToken)
   artifactsFolder: /tmp/artifacts/$(containerName)
+  sourceFolder: $(Build.SourcesDirectory)
   
   portuguesePtm : tttp120.ptm
   
