@@ -15,10 +15,7 @@ jobs:
     demands: Agent.OS -equals Linux
   workspace:
     clean: all
-  steps:  
-  - task: UsePythonVersion@0
-    inputs:
-      versionSpec: '3.6'
+  steps:
   - task: Docker@1
     displayName: Container Build
     inputs:
