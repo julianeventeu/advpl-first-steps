@@ -48,15 +48,10 @@ def getInvalidTests(methods):
 
 def getPathTests():
     if len(sys.argv) > 1:
+        print("Path: {}".format(sys.argv[1]))
         return sys.argv[1]
     else:
         return 'C:\\git\\advpl-first-steps\\test\\tests'
-
-def getContainerName():
-    if len(sys.argv) >= 2:
-        return sys.argv[2]
-    else:
-        return 'TODO'
 
 def getAllTestCases(path):
     files = []
@@ -68,9 +63,9 @@ def getAllTestCases(path):
 
     return files
 
-def run_test(name_test_class, name_container):
+def run_test(name_test_class):
     try:
-        output = subprocess.run(['docker', 'exec', name_container, '/usr/local/run_test.sh', name_test_class], stdout=subprocess.PIPE, timeout=500)
+        output = subprocess.run(['/usr/local/runTest.sh', name_test_class], stdout=subprocess.PIPE, timeout=500)
         outputStr = output.stdout.decode('windows-1252').strip()
     except:
         outputStr = ""   
@@ -90,12 +85,11 @@ def getClassName(testCase):
     return testCase
 
 def executeTests(files_test, successful, half_successful, broke):
-    container_name = getContainerName()
     for file in files_test:
         name_test_class = getClassName(file)
         print("Begin Run Test: {}".format(name_test_class) + " - " + str(datetime.datetime.now()))
         
-        run_result = result_to_json(run_test(name_test_class, container_name))
+        run_result = result_to_json(run_test(name_test_class))
         analyse_result(file, run_result, successful, half_successful, broke)
         
         print("End Run Test: {}".format(name_test_class) + " - " + str(datetime.datetime.now())) 
