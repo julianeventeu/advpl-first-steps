@@ -27,10 +27,16 @@ def result_to_json(result_test):
 def analyse_result(file_test_case, result_test_case, successful, half_successful, broke):
     if ( result_test_case == None ) or ( 'tests' not in result_test_case ) or ( not result_test_case['tests']['runned'] ):
         broke.append(file_test_case)
-    else:
-        pprint.pprint(result_test_case)
+    else:        
         errors = getInvalidTests(result_test_case['tests']['methods'])
         size = len(result_test_case['tests']['methods'])
+        filtred_method = get_result_without_setup(result_test_case['tests']['methods'])
+        result_test_case['tests']['methods'] = filtred_method
+        
+        print("\n")
+        print("Detalhes da Execucao do Teste: {}".format(result_test_case['tests']['classname']))
+        pprint.pprint(result_test_case)
+        print("\n")
 
         if errors == 0:
             successful.append(file_test_case)
@@ -47,6 +53,13 @@ def getInvalidTests(methods):
             invalids += 1
 
     return invalids
+
+def get_result_without_setup(methods):
+    filtred_method = []
+    for test in methods:
+        if not('SetUp' in test["methodname"] or 'TearDown' in test["methodname"]):
+            filtred_method.append(test)
+    return filtred_method
 
 def getPathTests():
     if len(sys.argv) > 1:
@@ -66,14 +79,10 @@ def getAllTestCases(path):
     return files
 
 def run_test(name_test_class):
-    try:
-        print('ok')
-        print(name_test_class)
-        #output = subprocess.run(['build/tests/runTest.sh', name_test_class], stdout=subprocess.PIPE, timeout=500)
+    try:       
         output = subprocess.run(['/usr/local/runTest.sh', name_test_class], stdout=subprocess.PIPE, timeout=500)
-        #output = subprocess.run(['C:\\git\\advpl-first-steps\\build\\runTest.sh', name_test_class], stdout=subprocess.PIPE, timeout=500)
         outputStr = output.stdout.decode('windows-1252').strip()
-        print(outputStr)
+        #print(outputStr)
     except subprocess.CalledProcessError as e:
         print (e.output)    
     return outputStr
@@ -110,12 +119,12 @@ def print_results(successful, half_successful, broke):
     print("Testes executados com sucesso:")
     print(successful)
     print("\n")
-    print("Testes com erro:")
+    print("Testes para revisao:")
     print(half_successful)
     print("\n")
 
     if len(half_successful) > 0:
-        raise SystemExit("Houve erros na execucao dos testes")
+        raise SystemExit("Houve erros na execucao dos testes, verifique os detalhes de quais testes falharam no log acima.")
 
 if __name__ == "__main__":
     successful = []
@@ -123,6 +132,5 @@ if __name__ == "__main__":
     broke = []
     
     filesTestCase = getAllTestCases(getPathTests())
-    print(filesTestCase)
     executeTests(filesTestCase, successful, half_successful, broke)
     print_results(successful, half_successful, broke)
