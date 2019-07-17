@@ -25,10 +25,7 @@ jobs:
       dockerFile: Dockerfile
       imageName: ${{ parameters.imageName }}
       qualifyImageName: false
-      arguments: --pull --build-arg LANG=${{ parameters.lang }} 
-  - task: UsePythonVersion@0
-    inputs:
-      versionSpec: '2.7'
+      arguments: --pull --build-arg LANG=${{ parameters.lang }}
   - script: |
       docker run --rm -d --name ${{ parameters.containerName }} -v ${{ parameters.artifactsFolder }}/:/artifacts/ ${{ parameters.imageName }}
     displayName: Run Image
