@@ -32,9 +32,9 @@ jobs:
   - script: |
       docker exec ${{ parameters.containerName }} /usr/local/fastComp.sh
     displayName: Source Compile     
-  #- script: |
-  #    docker exec ${{ parameters.containerName }} /usr/local/compTests.sh
-  #  displayName: Tests Compile
+  - script: |
+      docker exec ${{ parameters.containerName }} /usr/local/compTests.sh
+    displayName: Tests Compile
   - script: |
       python  ${{ parameters.sourceFolder }}/build/runTests.py -${{ parameters.sourceFolder }}/test/tests -${{ parameters.containerName }}
     displayName: Run Testes
