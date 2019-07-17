@@ -51,7 +51,7 @@ def getPathTests():
         print("Path: {}".format(sys.argv[1]))
         return sys.argv[1]
     else:
-        return 'C:\\git\\advpl-first-steps\\test\\tests'
+        return 'C:\\git\\advpl-first-steps\\tests'
 
 def getAllTestCases(path):
     files = []
@@ -68,11 +68,11 @@ def run_test(name_test_class):
         print('ok')
         print(name_test_class)
         output = subprocess.run(['/usr/local/runTest.sh', name_test_class], stdout=subprocess.PIPE, timeout=500)
+        #output = subprocess.run(['C:\\git\\advpl-first-steps\\build\\runTest.sh', name_test_class], stdout=subprocess.PIPE, timeout=500)
         outputStr = output.stdout.decode('windows-1252').strip()
         print(outputStr)
-    except:
-        outputStr = ""   
-        print('erro')
+    except subprocess.CalledProcessError as e:
+        print (e.output)    
     return outputStr
 
 def getClassName(testCase):
