@@ -67,7 +67,8 @@ def run_test(name_test_class):
     try:
         print('ok')
         print(name_test_class)
-        output = subprocess.run(['/usr/local/runTest.sh', name_test_class], stdout=subprocess.PIPE, timeout=500)
+        output = subprocess.run(['build/tests/runTest.sh', name_test_class], stdout=subprocess.PIPE, timeout=500)
+        #output = subprocess.run(['/usr/local/runTest.sh', name_test_class], stdout=subprocess.PIPE, timeout=500)
         #output = subprocess.run(['C:\\git\\advpl-first-steps\\build\\runTest.sh', name_test_class], stdout=subprocess.PIPE, timeout=500)
         outputStr = output.stdout.decode('windows-1252').strip()
         print(outputStr)
