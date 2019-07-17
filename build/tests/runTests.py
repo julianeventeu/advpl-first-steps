@@ -4,6 +4,7 @@ import json
 import time
 import datetime
 import subprocess
+import pprint
 
 def result_to_json(result_test):
     jsonResult = None
@@ -27,6 +28,7 @@ def analyse_result(file_test_case, result_test_case, successful, half_successful
     if ( result_test_case == None ) or ( 'tests' not in result_test_case ) or ( not result_test_case['tests']['runned'] ):
         broke.append(file_test_case)
     else:
+        pprint.pprint(result_test_case)
         errors = getInvalidTests(result_test_case['tests']['methods'])
         size = len(result_test_case['tests']['methods'])
 
@@ -91,24 +93,29 @@ def getClassName(testCase):
 
 def executeTests(files_test, successful, half_successful, broke):
     for file in files_test:
+        #run_result = {"tests":{"classname":"helloWorldTestCase","coverage": "","methods":[{"line":-1,"message":"","methodname":"SetUpClass","skiped":False,"success":True},{"line":-1,"message":"","methodname":"SetUp001","skiped":False,"success":True},{"line":-1,"message":"","methodname":"TearDown001","skiped":False,"success":True},{"line":-1,"message":"Expected that '' should be equals to I S2 AdvPL","methodname":"testCase1","skiped":False,"success":False},{"line":-1,"message":"","methodname":"TearDownClass","skiped":False,"success":True}],"runned":True},"lcov":{}}
+
         name_test_class = getClassName(file)
-        print("Begin Run Test: {}".format(name_test_class) + " - " + str(datetime.datetime.now()))
+        #print("Begin Run Test: {}".format(name_test_class) + " - " + str(datetime.datetime.now()))
         
         run_result = result_to_json(run_test(name_test_class))
         analyse_result(file, run_result, successful, half_successful, broke)
         
-        print("End Run Test: {}".format(name_test_class) + " - " + str(datetime.datetime.now())) 
+        #print("End Run Test: {}".format(name_test_class) + " - " + str(datetime.datetime.now()))
 
 def print_results(successful, half_successful, broke):
     print("\n")
-    print("Successful:")
+    print("##Resumo de Resultados##")
+    print("\n")
+    print("Testes executados com sucesso:")
     print(successful)
     print("\n")
-    print("Half-assed:")
+    print("Testes com erro:")
     print(half_successful)
     print("\n")
-    print("Broke:")
-    print(broke)
+
+    if len(half_successful) > 0:
+        raise SystemExit("Houve erros na execucao dos testes")
 
 if __name__ == "__main__":
     successful = []
