@@ -31,7 +31,7 @@ Local aPessoas := {}
     aAdd(aPessoas, {"F", 1.60} )
     aAdd(aPessoas, {"M", 1.90} )
     
-    aTeste := u_analisePessoas()
+    aTeste := u_analisePessoas(aPessoas)
     oResult:AssertEqual(aTeste[1], 1.50)
     oResult:AssertEqual(aTeste[2], 1.63)
     oResult:AssertEqual(aTeste[3], 2)
@@ -50,7 +50,7 @@ Local aPessoas := {}
     aAdd(aPessoas, {"M", 1.60} )
     aAdd(aPessoas, {"M", 1.90} )
     
-    aTeste := u_analisePessoas()
+    aTeste := u_analisePessoas(aPessoas)
     oResult:AssertEqual(aTeste[1], 1.50)
     oResult:AssertEqual(aTeste[2], 0)
     oResult:AssertEqual(aTeste[3], 5)
